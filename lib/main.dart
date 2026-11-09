@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'splash_screen.dart';
 import 'proposal_screen.dart';
 import 'prices_screen.dart';
 
@@ -18,7 +19,8 @@ class EasyMarketApp extends StatelessWidget {
         primarySwatch: Colors.green,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: const MainNavigationScreen(),
+      // Configuramos la app para que inicie en la Splash Screen
+      home: const SplashScreen(),
     );
   }
 }
@@ -33,7 +35,6 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _currentIndex = 0;
 
-  // Lista de pantallas que conectamos en la app
   final List<Widget> _screens = [
     const ProposalScreen(),
     const PricesScreen(),
