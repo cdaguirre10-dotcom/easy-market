@@ -77,7 +77,7 @@
             border-bottom: 2px solid #e8f5e9;
             padding-bottom: 5px;
         }
-        /* Tarjetas de producto estilo boceto */
+        /* Tarjetas de producto */
         .product-card {
             display: flex;
             align-items: center;
@@ -102,7 +102,6 @@
             font-size: 9px;
             font-weight: bold;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             flex-shrink: 0;
         }
         .product-details {
@@ -120,7 +119,7 @@
             font-weight: bold;
             color: #333;
         }
-        /* Estilos Pantalla 2 (Bolsa) */
+        /* Bolsa y Pagos */
         .cart-item {
             display: flex;
             justify-content: space-between;
@@ -147,6 +146,29 @@
             cursor: pointer;
             font-weight: bold;
         }
+        .payment-option {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        .payment-option:hover {
+            background: #e8f5e9;
+        }
+        /* QR Box */
+        .qr-box {
+            background: #fff;
+            border: 2px dashed #2e7d32;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
         .btn {
             display: block;
             width: 100%;
@@ -170,7 +192,6 @@
         .btn:hover {
             opacity: 0.9;
         }
-        /* Notificación flotante pequeña (Toast) */
         #toast {
             visibility: hidden;
             min-width: 180px;
@@ -205,12 +226,10 @@
 
         <!-- ================= PANTALLA Nº 1: CATÁLOGO ================= -->
         <div id="screen-1" class="screen active">
-            
             <div class="hero-video">
                 <video src="easy-market.mp4" autoplay loop muted playsinline></video>
             </div>
 
-            <!-- Carrusel de Categorías -->
             <div class="categories">
                 <div class="category-chip">Todo</div>
                 <div class="category-chip">Almacén</div>
@@ -221,7 +240,6 @@
 
             <div class="section-title">Productos Disponibles (Local: La Frontera)</div>
 
-            <!-- Producto 1: Bolsa Almacén -->
             <div class="product-card">
                 <div class="product-visual">
                     <span style="font-size: 8px;">LOGO</span>
@@ -234,7 +252,6 @@
                 <button class="btn" style="width: auto; padding: 8px 14px; margin:0; font-size: 12px;" onclick="addToCart('Bolsa Almacén', 8000)">AGREGAR</button>
             </div>
 
-            <!-- Producto 2: Bolsa Panadería -->
             <div class="product-card">
                 <div class="product-visual">
                     <span style="font-size: 8px;">LOGO</span>
@@ -255,22 +272,46 @@
             <h3 style="color: #2e7d32; margin-top:0;">Bolsa Disponible</h3>
             <p style="font-size: 13px; color: #666;">Revisa tus productos seleccionados antes de avanzar al pago.</p>
 
-            <div id="cart-items-container">
-                <!-- Dinámico -->
-            </div>
+            <div id="cart-items-container"></div>
 
             <div style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px; display: flex; justify-content: space-between; font-weight: bold;">
                 <span>Total a Pagar:</span>
                 <span id="cart-total">$0</span>
             </div>
 
-            <button class="btn" onclick="alert('Próximamente: Pantalla Nº 3 de Selección de Pago (Mercado Pago / Tarjetas)');">Continuar al Pago</button>
+            <button class="btn" onclick="goToScreen(3)">Continuar al Pago</button>
             <button class="btn btn-secondary" onclick="goToScreen(1)">Volver al Catálogo</button>
+        </div>
+
+        <!-- ================= PANTALLA Nº 3: MÉTODO DE PAGO ================= -->
+        <div id="screen-3" class="screen">
+            <h3 style="color: #2e7d32; margin-top:0;">Pagar con</h3>
+            <p style="font-size: 13px; color: #666;">Selecciona tu medio de pago preferido:</p>
+
+            <div class="payment-option" onclick="goToScreen(4)">💳 Tarjeta de Débito</div>
+            <div class="payment-option" onclick="goToScreen(4)">💳 Tarjeta de Crédito</div>
+            <div class="payment-option" style="background: #e8f5e9; border-color: #2e7d32;" onclick="goToScreen(4)">📱 Mercado Pago</div>
+
+            <button class="btn btn-secondary" onclick="goToScreen(2)">Volver a la Bolsa</button>
+        </div>
+
+        <!-- ================= PANTALLA Nº 4: QR Y AGRADECIMIENTO ================= -->
+        <div id="screen-4" class="screen" style="text-align: center;">
+            <h3 style="color: #2e7d32; margin-top:0;">¡Gracias por su compra!</h3>
+            <p style="font-size: 13px; color: #666;">Presenta este código QR en el local para retirar tu pedido.</p>
+
+            <div class="qr-box">
+                <span style="font-size: 50px;">▧▨▧▨</span>
+                <p style="margin: 5px 0 0 0; font-size: 12px; font-weight: bold; color: #2e7d32;">#EASY-MARKET-2026</p>
+            </div>
+
+            <p style="font-size: 12px; color: #888;">Local: La Frontera (Paso de los Libres)</p>
+
+            <button class="btn" onclick="resetApp()">Volver al Inicio</button>
         </div>
 
     </div>
 
-    <!-- Notificación flotante pequeña -->
     <div id="toast">¡Agregado a la bolsa!</div>
 
     <script>
@@ -338,6 +379,12 @@
             }
 
             document.getElementById('cart-total').innerText = '$' + total;
+        }
+
+        function resetApp() {
+            cart['Bolsa Almacén'].qty = 0;
+            cart['Bolsa Panadería'].qty = 0;
+            goToScreen(1);
         }
     </script>
 </body>
