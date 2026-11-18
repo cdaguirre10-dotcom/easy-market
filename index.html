@@ -41,7 +41,24 @@
         .screen.active {
             display: block;
         }
-        /* Video de inicio */
+        .screen-brand-header {
+            text-align: center;
+            border-bottom: 2px solid #e8f5e9;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .screen-brand-header h2 {
+            margin: 0 0 3px 0;
+            font-size: 16px;
+            color: #2e7d32;
+        }
+        .screen-brand-header p {
+            margin: 0;
+            font-size: 10px;
+            color: #555;
+            font-style: italic;
+            font-weight: bold;
+        }
         .hero-video {
             text-align: center;
             margin-bottom: 6px;
@@ -52,7 +69,6 @@
             height: auto;
             border-radius: 8px;
         }
-        /* Lema oficial de la empresa */
         .company-slogan {
             text-align: center;
             font-size: 11px;
@@ -61,7 +77,6 @@
             margin-bottom: 12px;
             padding: 0 5px;
         }
-        /* Carrusel de Categorías Visuales */
         .categories {
             display: flex;
             gap: 10px;
@@ -103,7 +118,6 @@
             border-bottom: 2px solid #e8f5e9;
             padding-bottom: 5px;
         }
-        /* Tarjetas de productos y locales */
         .product-card {
             display: flex;
             align-items: center;
@@ -152,7 +166,6 @@
             font-weight: bold;
             color: #333;
         }
-        /* Bolsa y Pagos */
         .cart-item {
             display: flex;
             justify-content: space-between;
@@ -193,13 +206,36 @@
         .payment-option:hover {
             background: #e8f5e9;
         }
+        /* Simulación de QR falso realista */
         .qr-box {
             background: #fff;
-            border: 2px dashed #2e7d32;
-            padding: 20px;
-            text-align: center;
+            border: 2px solid #2e7d32;
+            padding: 15px;
+            display: inline-block;
             border-radius: 8px;
-            margin: 15px 0;
+            margin: 10px 0;
+        }
+        .fake-qr {
+            width: 130px;
+            height: 130px;
+            background: repeating-linear-gradient(45deg, #2e7d32, #2e7d32 10px, #fff 10px, #fff 20px);
+            border: 4px solid #2e7d32;
+            margin: 0 auto;
+            position: relative;
+        }
+        .fake-qr::after {
+            content: "QR";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            color: #2e7d32;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 2px solid #2e7d32;
         }
         .btn {
             display: block;
@@ -262,12 +298,10 @@
                 <video src="easy-market.mp4" autoplay loop muted playsinline></video>
             </div>
             
-            <!-- Lema oficial de la empresa -->
             <div class="company-slogan">
-                Buenos precios, menos desperdicio, un planeta mejor
+                "Buenos precios, menos desperdicio, un planeta mejor"
             </div>
 
-            <!-- Carrusel de Categorías (Primer botón = Inicio con casa 🏠) -->
             <div class="categories">
                 <div class="category-item" onclick="filterCategory('inicio')">
                     <span class="category-icon">🏠</span>
@@ -293,15 +327,18 @@
 
             <div class="section-title" id="list-title">Productos Disponibles</div>
 
-            <div id="product-list-container">
-                <!-- Se cargan dinámicamente -->
-            </div>
+            <div id="product-list-container"></div>
 
             <button class="btn" style="margin-top: 15px;" onclick="goToScreen(2)">Ver Bolsa de Compras</button>
         </div>
 
         <!-- ================= PANTALLA Nº 2: BOLSA DISPONIBLE ================= -->
         <div id="screen-2" class="screen">
+            <div class="screen-brand-header">
+                <h2>Easy Market</h2>
+                <p>"Buenos precios, menos desperdicio, un planeta mejor"</p>
+            </div>
+
             <h3 style="color: #2e7d32; margin-top:0;">Bolsa Disponible</h3>
             <p style="font-size: 13px; color: #666;">Revisa tus productos seleccionados antes de avanzar al pago.</p>
 
@@ -318,24 +355,37 @@
 
         <!-- ================= PANTALLA Nº 3: MÉTODO DE PAGO ================= -->
         <div id="screen-3" class="screen">
+            <div class="screen-brand-header">
+                <h2>Easy Market</h2>
+                <p>"Buenos precios, menos desperdicio, un planeta mejor"</p>
+            </div>
+
             <h3 style="color: #2e7d32; margin-top:0;">Pagar con</h3>
             <p style="font-size: 13px; color: #666;">Selecciona tu medio de pago preferido:</p>
 
             <div class="payment-option" onclick="goToScreen(4)">💳 Tarjeta de Débito</div>
             <div class="payment-option" onclick="goToScreen(4)">💳 Tarjeta de Crédito</div>
-            <div class="payment-option" style="background: #e8f5e9; border-color: #2e7d32;" onclick="goToScreen(4)">📱 Mercado Pago</div>
+            <div class="payment-option" style="background: #e8f5e9; border-color: #2e7d32; display: flex; align-items: center; justify-content: center; gap: 8px;" onclick="goToScreen(4)">
+                <span style="background: #009ee3; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px;">MP</span> 
+                <span>Mercado Pago</span>
+            </div>
 
             <button class="btn btn-secondary" onclick="goToScreen(2)">Volver a la Bolsa</button>
         </div>
 
         <!-- ================= PANTALLA Nº 4: QR Y AGRADECIMIENTO ================= -->
         <div id="screen-4" class="screen" style="text-align: center;">
+            <div class="screen-brand-header">
+                <h2>Easy Market</h2>
+                <p>"Buenos precios, menos desperdicio, un planeta mejor"</p>
+            </div>
+
             <h3 style="color: #2e7d32; margin-top:0;">¡Gracias por su compra!</h3>
             <p style="font-size: 13px; color: #666;">Presenta este código QR en el local para retirar tu pedido.</p>
 
             <div class="qr-box">
-                <span style="font-size: 50px;">▧▨▧▨</span>
-                <p style="margin: 5px 0 0 0; font-size: 12px; font-weight: bold; color: #2e7d32;">#EASY-MARKET-2026</p>
+                <div class="fake-qr"></div>
+                <p style="margin: 8px 0 0 0; font-size: 12px; font-weight: bold; color: #2e7d32;">#EASY-MARKET-2026</p>
             </div>
 
             <p style="font-size: 12px; color: #888;">Retiro en Local Asociado (Paso de los Libres)</p>
