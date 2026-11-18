@@ -42,13 +42,47 @@
             display: block;
         }
         /* Estilos Pantalla 1 */
+        .hero-banner {
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Estilo visual de la bolsa con logo integrado por todos lados */
+        .bag-illustration {
+            background: #ffffff;
+            color: #2e7d32;
+            width: 90px;
+            height: 110px;
+            margin: 0 auto 10px auto;
+            border-radius: 8px;
+            border: 2px dashed #1b5e20;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 11px;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .bag-logo-repeat {
+            font-size: 9px;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
         .hero-video {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         .hero-video video {
             width: 100%;
-            max-width: 150px;
+            max-width: 120px;
             height: auto;
             border-radius: 8px;
         }
@@ -145,6 +179,28 @@
         .btn:hover {
             opacity: 0.9;
         }
+        /* Notificación flotante pequeña (Toast) */
+        #toast {
+            visibility: hidden;
+            min-width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 8px;
+            position: fixed;
+            zIndex: 1;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 13px;
+        }
+        #toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 1.5s;
+        }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
     </style>
 </head>
 <body>
@@ -158,8 +214,19 @@
 
         <!-- ================= PANTALLA Nº 1: CATÁLOGO ================= -->
         <div id="screen-1" class="screen active">
-            <div class="hero-video">
-                <video src="easy-market.mp4" autoplay loop muted playsinline></video>
+            
+            <!-- Banner con la Bolsa de la App y Logos repetidos -->
+            <div class="hero-banner">
+                <div class="bag-illustration">
+                    <span class="bag-logo-repeat">EASY MARKET</span>
+                    <span style="font-size: 20px; margin: 4px 0;">🛍️</span>
+                    <span class="bag-logo-repeat">EASY MARKET</span>
+                </div>
+                <div class="hero-video">
+                    <video src="easy-market.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <h3 style="margin:5px 0; font-size:16px;">¡Bienvenidos!</h3>
+                <p style="margin:0; font-size:12px;">Excedentes y ofertas locales</p>
             </div>
 
             <!-- Carrusel de Categorías -->
@@ -214,8 +281,10 @@
 
     </div>
 
+    <!-- Notificación flotante pequeña -->
+    <div id="toast">¡Producto agregado a la bolsa!</div>
+
     <script>
-        // Memoria simple de la bolsa
         let cart = {
             'Almacén': { price: 8000, qty: 0 },
             'Panadería': { price: 10000, qty: 0 }
@@ -229,7 +298,13 @@
 
         function addToCart(item, price) {
             cart[item].qty += 1;
-            alert('¡Producto agregado a la bolsa!');
+            showToast();
+        }
+
+        function showToast() {
+            const x = document.getElementById("toast");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
         }
 
         function changeQty(item, delta) {
