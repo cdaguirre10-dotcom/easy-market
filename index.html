@@ -52,7 +52,7 @@
             height: auto;
             border-radius: 8px;
         }
-        /* Carrusel de Categorías Visuales (Pantalla 1) */
+        /* Carrusel de Categorías Visuales */
         .categories {
             display: flex;
             gap: 10px;
@@ -247,17 +247,17 @@
 
     <div class="container">
 
-        <!-- ================= PANTALLA Nº 1: CATÁLOGO Y LOCALES PRINCIPAL ================= -->
+        <!-- ================= PANTALLA Nº 1: CATÁLOGO PRINCIPAL ================= -->
         <div id="screen-1" class="screen active">
             <div class="hero-video">
                 <video src="easy-market.mp4" autoplay loop muted playsinline></video>
             </div>
 
-            <!-- Carrusel de Categorías (según boceto N1) -->
+            <!-- Carrusel de Categorías (Primer botón = Inicio con casa 🏠) -->
             <div class="categories">
-                <div class="category-item" onclick="filterCategory('todos')">
-                    <span class="category-icon">🛍️</span>
-                    <span class="category-name">Todo</span>
+                <div class="category-item" onclick="filterCategory('inicio')">
+                    <span class="category-icon">🏠</span>
+                    <span class="category-name">Inicio</span>
                 </div>
                 <div class="category-item" onclick="filterCategory('panaderia')">
                     <span class="category-icon">🍞</span>
@@ -277,17 +277,13 @@
                 </div>
             </div>
 
-            <div class="section-title" id="list-title">Productos Disponibles y Locales en Libres</div>
+            <div class="section-title" id="list-title">Productos Disponibles</div>
 
             <div id="product-list-container">
                 <!-- Se cargan dinámicamente -->
             </div>
 
-            <!-- Botones de navegación principal -->
-            <div id="main-nav-buttons">
-                <button class="btn btn-secondary" id="btn-back-main" style="display:none;" onclick="filterCategory('todos')">Volver a Pantalla Principal (Nº 1)</button>
-                <button class="btn" style="margin-top: 10px;" onclick="goToScreen(2)">Ver Bolsa de Compras</button>
-            </div>
+            <button class="btn" style="margin-top: 15px;" onclick="goToScreen(2)">Ver Bolsa de Compras</button>
         </div>
 
         <!-- ================= PANTALLA Nº 2: BOLSA DISPONIBLE ================= -->
@@ -338,18 +334,20 @@
     <div id="toast">¡Agregado a la bolsa!</div>
 
     <script>
-        const products = [
-            { id: 'p1', name: 'Bolsa Pan del Día x2kg', category: 'panaderia', store: 'Panadería La Española', price: 6500, icon: '🍞' },
-            { id: 'p2', name: 'Bolsa Facturas Surtidas', category: 'panaderia', store: 'Panadería El Aguila', price: 7800, icon: '🥐' },
-            { id: 'p3', name: 'Bolsa Torta / Budines', category: 'pasteleria', store: 'Confitería Moka', price: 9500, icon: '🎂' },
-            { id: 'p4', name: 'Excedente Helado Artesanal 1kg', category: 'heladeria', store: 'Helados Del Sur', price: 11000, icon: '🍨' },
-            { id: 'p5', name: 'Paletas Heladas Pack x6', category: 'heladeria', store: 'Heladería UNITAS', price: 8500, icon: '🍧' },
-            { id: 'p6', name: 'Bolsa Sorpresa Almacén', category: 'almacen', store: 'Distribuidora DESPO', price: 9000, icon: '🥫' },
-            { id: 'p7', name: 'Bolsa Almacén y Limpieza', category: 'almacen', store: 'Supermercado La Frontera', price: 12500, icon: '🛒' }
+        // Productos principales de la Pantalla N1 (Bolsa Almacén y Bolsa Panadería) y comercios por categoría
+        const allProducts = [
+            { id: 'p1', name: 'Bolsa Almacén', category: 'inicio', store: 'La Frontera', price: 8000, icon: '🛍️' },
+            { id: 'p2', name: 'Bolsa Panadería', category: 'inicio', store: 'La Española', price: 10000, icon: '🛍️' },
+            { id: 'p3', name: 'Bolsa Pan del Día x2kg', category: 'panaderia', store: 'Panadería La Española', price: 6500, icon: '🍞' },
+            { id: 'p4', name: 'Bolsa Facturas Surtidas', category: 'panaderia', store: 'Panadería El Aguila', price: 7800, icon: '🥐' },
+            { id: 'p5', name: 'Bolsa Torta / Budines', category: 'pasteleria', store: 'Confitería Moka', price: 9500, icon: '🎂' },
+            { id: 'p6', name: 'Excedente Helado Artesanal 1kg', category: 'heladeria', store: 'Helados Del Sur', price: 11000, icon: '🍨' },
+            { id: 'p7', name: 'Paletas Heladas Pack x6', category: 'heladeria', store: 'Heladería UNITAS', price: 8500, icon: '🍧' },
+            { id: 'p8', name: 'Bolsa Sorpresa Almacén', category: 'almacen', store: 'Distribuidora DESPO', price: 9000, icon: '🥫' }
         ];
 
         let cart = {};
-        products.forEach(p => {
+        allProducts.forEach(p => {
             cart[p.name] = { price: p.price, qty: 0 };
         });
 
@@ -362,17 +360,14 @@
         function filterCategory(cat) {
             const container = document.getElementById('product-list-container');
             const title = document.getElementById('list-title');
-            const backBtn = document.getElementById('btn-back-main');
             container.innerHTML = '';
 
-            let filtered = products;
-            if (cat !== 'todos') {
-                filtered = products.filter(p => p.category === cat);
+            let filtered = allProducts.filter(p => p.category === 'inicio');
+            if (cat !== 'inicio') {
+                filtered = allProducts.filter(p => p.category === cat);
                 title.innerText = `Locales en Libres: ${cat.charAt(0).toUpperCase() + cat.slice(1)}`;
-                backBtn.style.display = 'block'; // Muestra el botón de volver a pantalla principal
             } else {
-                title.innerText = `Productos Disponibles y Locales en Libres`;
-                backBtn.style.display = 'none'; // Oculta el botón si ya está en principal
+                title.innerText = `Productos Disponibles`;
             }
 
             if (filtered.length === 0) {
@@ -457,11 +452,12 @@
             for (let item in cart) {
                 cart[item].qty = 0;
             }
-            filterCategory('todos');
+            filterCategory('inicio');
             goToScreen(1);
         }
 
-        filterCategory('todos');
+        // Cargar vista inicial al abrir
+        filterCategory('inicio');
     </script>
 </body>
 </html>
