@@ -52,7 +52,7 @@
             height: auto;
             border-radius: 8px;
         }
-        /* Carrusel de Categorías Visuales */
+        /* Carrusel de Categorías Visuales (Pantalla 1) */
         .categories {
             display: flex;
             gap: 10px;
@@ -94,7 +94,7 @@
             border-bottom: 2px solid #e8f5e9;
             padding-bottom: 5px;
         }
-        /* Tarjetas de locales y productos */
+        /* Tarjetas de productos y locales */
         .product-card {
             display: flex;
             align-items: center;
@@ -247,13 +247,13 @@
 
     <div class="container">
 
-        <!-- ================= PANTALLA Nº 1: CATÁLOGO Y LOCALES ================= -->
+        <!-- ================= PANTALLA Nº 1: CATÁLOGO Y LOCALES PRINCIPAL ================= -->
         <div id="screen-1" class="screen active">
             <div class="hero-video">
                 <video src="easy-market.mp4" autoplay loop muted playsinline></video>
             </div>
 
-            <!-- Carrusel con comercios/rubros reales de Paso de los Libres -->
+            <!-- Carrusel de Categorías (según boceto N1) -->
             <div class="categories">
                 <div class="category-item" onclick="filterCategory('todos')">
                     <span class="category-icon">🛍️</span>
@@ -277,16 +277,17 @@
                 </div>
             </div>
 
-            <div class="section-title" id="list-title">Comercios y Excedentes en Libres</div>
+            <div class="section-title" id="list-title">Productos Disponibles y Locales en Libres</div>
 
             <div id="product-list-container">
                 <!-- Se cargan dinámicamente -->
             </div>
 
-            <!-- Botón específico para volver a la pantalla principal N1 desde la vista filtrada -->
-            <button class="btn btn-secondary" onclick="filterCategory('todos')">Volver a Pantalla Principal (Nº 1)</button>
-
-            <button class="btn" style="margin-top: 10px;" onclick="goToScreen(2)">Ver Bolsa de Compras</button>
+            <!-- Botones de navegación principal -->
+            <div id="main-nav-buttons">
+                <button class="btn btn-secondary" id="btn-back-main" style="display:none;" onclick="filterCategory('todos')">Volver a Pantalla Principal (Nº 1)</button>
+                <button class="btn" style="margin-top: 10px;" onclick="goToScreen(2)">Ver Bolsa de Compras</button>
+            </div>
         </div>
 
         <!-- ================= PANTALLA Nº 2: BOLSA DISPONIBLE ================= -->
@@ -361,14 +362,17 @@
         function filterCategory(cat) {
             const container = document.getElementById('product-list-container');
             const title = document.getElementById('list-title');
+            const backBtn = document.getElementById('btn-back-main');
             container.innerHTML = '';
 
             let filtered = products;
             if (cat !== 'todos') {
                 filtered = products.filter(p => p.category === cat);
                 title.innerText = `Locales en Libres: ${cat.charAt(0).toUpperCase() + cat.slice(1)}`;
+                backBtn.style.display = 'block'; // Muestra el botón de volver a pantalla principal
             } else {
-                title.innerText = `Comercios y Excedentes en Libres`;
+                title.innerText = `Productos Disponibles y Locales en Libres`;
+                backBtn.style.display = 'none'; // Oculta el botón si ya está en principal
             }
 
             if (filtered.length === 0) {
@@ -453,6 +457,7 @@
             for (let item in cart) {
                 cart[item].qty = 0;
             }
+            filterCategory('todos');
             goToScreen(1);
         }
 
