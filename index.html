@@ -44,13 +44,23 @@
         /* Video de inicio */
         .hero-video {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .hero-video video {
             width: 100%;
-            max-width: 120px;
+            max-width: 110px;
             height: auto;
             border-radius: 8px;
+        }
+        /* Lema de la empresa debajo del logo */
+        .company-slogan {
+            text-align: center;
+            font-size: 12px;
+            color: #2e7d32;
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 12px;
+            padding: 0 10px;
         }
         /* Carrusel de Categorías Visuales */
         .categories {
@@ -252,6 +262,11 @@
             <div class="hero-video">
                 <video src="easy-market.mp4" autoplay loop muted playsinline></video>
             </div>
+            
+            <!-- Lema de la empresa al pie del logo -->
+            <div class="company-slogan">
+                "Comercialización inteligente de excedentes y ofertas locales"
+            </div>
 
             <!-- Carrusel de Categorías (Primer botón = Inicio con casa 🏠) -->
             <div class="categories">
@@ -334,7 +349,6 @@
     <div id="toast">¡Agregado a la bolsa!</div>
 
     <script>
-        // Productos principales de la Pantalla N1 (Bolsa Almacén y Bolsa Panadería) y comercios por categoría
         const allProducts = [
             { id: 'p1', name: 'Bolsa Almacén', category: 'inicio', store: 'La Frontera', price: 8000, icon: '🛍️' },
             { id: 'p2', name: 'Bolsa Panadería', category: 'inicio', store: 'La Española', price: 10000, icon: '🛍️' },
