@@ -6,34 +6,37 @@
     <title>Easy Market - Paso de los Libres</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f4f1;
+            color: #2c3e50;
             margin: 0;
             padding: 0;
         }
         header {
-            background-color: #2e7d32;
+            background: linear-gradient(135deg, #2e7d32, #388e3c);
             color: white;
-            padding: 15px;
+            padding: 18px;
             text-align: center;
+            box-shadow: 0 2px 10px rgba(46, 125, 50, 0.2);
         }
         header h1 {
             margin: 0;
-            font-size: 20px;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
         header p {
-            margin: 3px 0 0 0;
+            margin: 4px 0 0 0;
             font-size: 12px;
             opacity: 0.9;
         }
         .container {
-            max-width: 500px;
-            margin: 15px auto;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 480px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
         }
         .screen {
             display: none;
@@ -41,100 +44,114 @@
         .screen.active {
             display: block;
         }
+        /* Encabezado fijo de marca en pantallas internas */
         .screen-brand-header {
             text-align: center;
-            border-bottom: 2px solid #e8f5e9;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 12px;
+            margin-bottom: 18px;
         }
         .screen-brand-header h2 {
-            margin: 0 0 3px 0;
-            font-size: 16px;
+            margin: 0 0 2px 0;
+            font-size: 18px;
             color: #2e7d32;
         }
         .screen-brand-header p {
             margin: 0;
-            font-size: 10px;
-            color: #555;
+            font-size: 11px;
+            color: #666;
             font-style: italic;
-            font-weight: bold;
+            font-weight: 500;
         }
+        /* Video de inicio */
         .hero-video {
             text-align: center;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         .hero-video video {
             width: 100%;
-            max-width: 110px;
+            max-width: 120px;
             height: auto;
-            border-radius: 8px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
+        /* Lema oficial elegante */
         .company-slogan {
             text-align: center;
-            font-size: 11px;
-            color: #2e7d32;
-            font-weight: bold;
-            margin-bottom: 12px;
-            padding: 0 5px;
+            font-size: 12px;
+            color: #388e3c;
+            font-weight: 600;
+            margin-bottom: 18px;
+            padding: 0 8px;
         }
+        /* Carrusel de Categorías con bordes muy redondeados y suaves */
         .categories {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             overflow-x: auto;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-            scrollbar-width: thin;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            scrollbar-width: none; /* Ocultar scroll en Firefox */
+        }
+        .categories::-webkit-scrollbar {
+            display: none; /* Ocultar scroll en Chrome/Safari */
         }
         .category-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: #e8f5e9;
-            border: 1px solid #c8e6c9;
-            padding: 8px 10px;
-            border-radius: 12px;
+            background: #f1f8f2;
+            border: 1px solid #d0e1d4;
+            padding: 10px 12px;
+            border-radius: 14px;
             cursor: pointer;
-            min-width: 75px;
+            min-width: 80px;
             flex-shrink: 0;
-            transition: 0.2s;
+            transition: all 0.2s ease;
         }
         .category-item:hover {
-            background: #c8e6c9;
+            background: #e2f0e4;
+            transform: translateY(-2px);
         }
         .category-icon {
-            font-size: 22px;
+            font-size: 24px;
             margin-bottom: 4px;
         }
         .category-name {
-            font-size: 10px;
-            font-weight: bold;
+            font-size: 11px;
+            font-weight: 600;
             color: #2e7d32;
             text-align: center;
         }
         .section-title {
             font-size: 15px;
             color: #2e7d32;
-            margin: 15px 0 10px 0;
-            border-bottom: 2px solid #e8f5e9;
-            padding-bottom: 5px;
+            margin: 18px 0 12px 0;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
+        /* Tarjetas de productos y locales muy suaves */
         .product-card {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #fafafa;
-            border: 1px solid #e0e0e0;
-            padding: 12px;
-            border-radius: 8px;
+            background: #fafcfb;
+            border: 1px solid #e2e8e4;
+            padding: 14px;
+            border-radius: 14px;
             margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+        .product-card:hover {
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.08);
         }
         .product-visual {
             background: #ffffff;
             color: #2e7d32;
             width: 55px;
-            height: 70px;
-            border-radius: 6px;
-            border: 2px dashed #2e7d32;
+            height: 65px;
+            border-radius: 10px;
+            border: 2px dashed #a3c1ad;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -146,82 +163,98 @@
         }
         .product-details {
             flex-grow: 1;
-            padding-left: 12px;
+            padding-left: 14px;
         }
         .product-details h4 {
             margin: 0 0 2px 0;
-            font-size: 14px;
-            color: #2e7d32;
+            font-size: 15px;
+            color: #2c3e50;
+            font-weight: 700;
         }
         .product-details .store-name {
             font-size: 11px;
-            color: #d32f2f;
-            font-weight: bold;
+            color: #e53935;
+            font-weight: 600;
             margin-bottom: 4px;
             display: block;
         }
         .product-details p {
             margin: 0;
-            font-size: 13px;
-            font-weight: bold;
-            color: #333;
+            font-size: 14px;
+            font-weight: 700;
+            color: #2e7d32;
         }
+        /* Bolsa y Pagos */
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #f9f9f9;
+            background: #f7faf8;
             border-left: 4px solid #2e7d32;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border-top: 1px solid #edf2ef;
+            border-right: 1px solid #edf2ef;
+            border-bottom: 1px solid #edf2ef;
         }
         .qty-controls {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-top: 5px;
+            gap: 10px;
+            margin-top: 6px;
         }
         .qty-btn {
             background: #2e7d32;
             color: white;
             border: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s;
+        }
+        .qty-btn:hover {
+            opacity: 0.85;
         }
         .payment-option {
-            background: #fafafa;
-            border: 1px solid #ddd;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 10px;
+            background: #fafcfb;
+            border: 1px solid #d0e1d4;
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 12px;
             cursor: pointer;
             text-align: center;
-            font-weight: bold;
+            font-weight: 600;
             color: #2e7d32;
+            transition: all 0.2s ease;
         }
         .payment-option:hover {
-            background: #e8f5e9;
+            background: #f1f8f2;
+            border-color: #2e7d32;
         }
-        /* Simulación de QR falso realista */
+        /* QR realista y suave */
         .qr-box {
             background: #fff;
-            border: 2px solid #2e7d32;
-            padding: 15px;
+            border: 2px solid #c8e6c9;
+            padding: 20px;
             display: inline-block;
-            border-radius: 8px;
+            border-radius: 16px;
             margin: 10px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
         }
         .fake-qr {
-            width: 130px;
-            height: 130px;
-            background: repeating-linear-gradient(45deg, #2e7d32, #2e7d32 10px, #fff 10px, #fff 20px);
+            width: 140px;
+            height: 140px;
+            background: repeating-linear-gradient(45deg, #2e7d32, #2e7d32 10px, #f4f6f8 10px, #f4f6f8 20px);
             border: 4px solid #2e7d32;
             margin: 0 auto;
             position: relative;
+            border-radius: 8px;
         }
         .fake-qr::after {
             content: "QR";
@@ -231,53 +264,60 @@
             transform: translate(-50%, -50%);
             background: white;
             color: #2e7d32;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 14px;
-            padding: 4px 8px;
-            border-radius: 4px;
+            padding: 4px 10px;
+            border-radius: 6px;
             border: 2px solid #2e7d32;
         }
+        /* Botones generales modernos con bordes redondeados */
         .btn {
             display: block;
             width: 100%;
             background-color: #2e7d32;
             color: white;
             text-align: center;
-            padding: 10px;
+            padding: 12px;
             border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: bold;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
             margin-top: 15px;
             text-decoration: none;
             box-sizing: border-box;
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
+            transition: all 0.2s ease;
         }
         .btn-secondary {
-            background-color: #757575;
-            margin-top: 8px;
+            background-color: #78909c;
+            box-shadow: 0 4px 12px rgba(120, 144, 156, 0.2);
+            margin-top: 10px;
         }
         .btn:hover {
-            opacity: 0.9;
+            opacity: 0.93;
+            transform: translateY(-1px);
         }
         #toast {
             visibility: hidden;
-            min-width: 180px;
-            background-color: #333;
+            min-width: 200px;
+            background-color: #2c3e50;
             color: #fff;
             text-align: center;
-            border-radius: 4px;
-            padding: 8px;
+            border-radius: 10px;
+            padding: 10px 16px;
             position: fixed;
-            z-index: 1;
+            z-index: 10;
             left: 50%;
             bottom: 30px;
             transform: translateX(-50%);
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         #toast.show {
             visibility: visible;
-            animation: fadein 0.3s, fadeout 0.3s 1.2s;
+            animation: fadein 0.3s, fadeout 0.3s 1.5s;
         }
         @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
         @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
@@ -329,7 +369,7 @@
 
             <div id="product-list-container"></div>
 
-            <button class="btn" style="margin-top: 15px;" onclick="goToScreen(2)">Ver Bolsa de Compras</button>
+            <button class="btn" style="margin-top: 18px;" onclick="goToScreen(2)">Ver Bolsa de Compras</button>
         </div>
 
         <!-- ================= PANTALLA Nº 2: BOLSA DISPONIBLE ================= -->
@@ -339,14 +379,14 @@
                 <p>"Buenos precios, menos desperdicio, un planeta mejor"</p>
             </div>
 
-            <h3 style="color: #2e7d32; margin-top:0;">Bolsa Disponible</h3>
-            <p style="font-size: 13px; color: #666;">Revisa tus productos seleccionados antes de avanzar al pago.</p>
+            <h3 style="color: #2e7d32; margin-top:0; font-size: 17px;">Bolsa Disponible</h3>
+            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Revisa tus productos seleccionados antes de avanzar al pago.</p>
 
             <div id="cart-items-container"></div>
 
-            <div style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px; display: flex; justify-content: space-between; font-weight: bold;">
+            <div style="margin-top: 18px; border-top: 1px solid #e0e0e0; padding-top: 12px; display: flex; justify-content: space-between; font-weight: 700; font-size: 15px;">
                 <span>Total a Pagar:</span>
-                <span id="cart-total">$0</span>
+                <span id="cart-total" style="color: #2e7d32;">$0</span>
             </div>
 
             <button class="btn" onclick="goToScreen(3)">Continuar al Pago</button>
@@ -360,13 +400,13 @@
                 <p>"Buenos precios, menos desperdicio, un planeta mejor"</p>
             </div>
 
-            <h3 style="color: #2e7d32; margin-top:0;">Pagar con</h3>
-            <p style="font-size: 13px; color: #666;">Selecciona tu medio de pago preferido:</p>
+            <h3 style="color: #2e7d32; margin-top:0; font-size: 17px;">Pagar con</h3>
+            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Selecciona tu medio de pago preferido:</p>
 
             <div class="payment-option" onclick="goToScreen(4)">💳 Tarjeta de Débito</div>
             <div class="payment-option" onclick="goToScreen(4)">💳 Tarjeta de Crédito</div>
-            <div class="payment-option" style="background: #e8f5e9; border-color: #2e7d32; display: flex; align-items: center; justify-content: center; gap: 8px;" onclick="goToScreen(4)">
-                <span style="background: #009ee3; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px;">MP</span> 
+            <div class="payment-option" style="background: #f1f8f2; border-color: #2e7d32; display: flex; align-items: center; justify-content: center; gap: 10px;" onclick="goToScreen(4)">
+                <span style="background: #009ee3; color: white; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: bold;">MP</span> 
                 <span>Mercado Pago</span>
             </div>
 
@@ -380,15 +420,15 @@
                 <p>"Buenos precios, menos desperdicio, un planeta mejor"</p>
             </div>
 
-            <h3 style="color: #2e7d32; margin-top:0;">¡Gracias por su compra!</h3>
-            <p style="font-size: 13px; color: #666;">Presenta este código QR en el local para retirar tu pedido.</p>
+            <h3 style="color: #2e7d32; margin-top:0; font-size: 17px;">¡Gracias por su compra!</h3>
+            <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Presenta este código QR en el local para retirar tu pedido.</p>
 
             <div class="qr-box">
                 <div class="fake-qr"></div>
-                <p style="margin: 8px 0 0 0; font-size: 12px; font-weight: bold; color: #2e7d32;">#EASY-MARKET-2026</p>
+                <p style="margin: 10px 0 0 0; font-size: 13px; font-weight: 700; color: #2e7d32; letter-spacing: 0.5px;">#EASY-MARKET-2026</p>
             </div>
 
-            <p style="font-size: 12px; color: #888;">Retiro en Local Asociado (Paso de los Libres)</p>
+            <p style="font-size: 12px; color: #7f8c8d; margin-top: 10px;">Retiro en Local Asociado (Paso de los Libres)</p>
 
             <button class="btn" onclick="resetApp()">Volver al Inicio</button>
         </div>
@@ -443,14 +483,14 @@
                     <div class="product-card">
                         <div class="product-visual">
                             <span style="font-size: 7px;">LOGO</span>
-                            <span style="font-size: 15px;">${p.icon}</span>
+                            <span style="font-size: 16px;">${p.icon}</span>
                         </div>
                         <div class="product-details">
                             <h4>${p.name}</h4>
                             <span class="store-name">📍 ${p.store}</span>
-                            <p>$${p.price}</p>
+                            <p>$${p.price.toLocaleString()}</p>
                         </div>
-                        <button class="btn" style="width: auto; padding: 8px 12px; margin:0; font-size: 11px;" onclick="addToCart('${p.name}')">AGREGAR</button>
+                        <button class="btn" style="width: auto; padding: 8px 14px; margin:0; font-size: 12px;" onclick="addToCart('${p.name}')">AGREGAR</button>
                     </div>
                 `;
             });
@@ -488,14 +528,14 @@
                     container.innerHTML += `
                         <div class="cart-item">
                             <div>
-                                <strong>${item}</strong><br>
-                                <span style="font-size:12px; color:#666;">$${cart[item].price} c/u</span>
+                                <strong style="color: #2c3e50;">${item}</strong><br>
+                                <span style="font-size:12px; color:#666;">$${cart[item].price.toLocaleString()} c/u</span>
                             </div>
                             <div style="text-align:right;">
-                                <span>$${subtotal}</span>
+                                <span style="font-weight: 700; color: #2e7d32;">$${subtotal.toLocaleString()}</span>
                                 <div class="qty-controls">
                                     <button class="qty-btn" onclick="changeQty('${item}', -1)">-</button>
-                                    <span>${cart[item].qty}</span>
+                                    <span style="font-weight: 600;">${cart[item].qty}</span>
                                     <button class="qty-btn" onclick="changeQty('${item}', 1)">+</button>
                                 </div>
                             </div>
@@ -505,10 +545,10 @@
             }
 
             if (!hasItems) {
-                container.innerHTML = '<p style="text-align:center; color:#888;">Tu bolsa está vacía.</p>';
+                container.innerHTML = '<p style="text-align:center; color:#888; padding: 20px 0;">Tu bolsa está vacía.</p>';
             }
 
-            document.getElementById('cart-total').innerText = '$' + total;
+            document.getElementById('cart-total').innerText = '$' + total.toLocaleString();
         }
 
         function resetApp() {
